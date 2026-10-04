@@ -7,91 +7,116 @@
 <style>
 
 /* ===== BACKGROUND ===== */
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#232f3e,#37475a);
-    font-family:'Segoe UI', sans-serif;
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1f2937 0%, #374151 35%, #f97316 100%);
+    font-family: 'Segoe UI', sans-serif;
 }
 
 /* ===== CONTAINER ===== */
-.auth-container{
-    width:400px;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    animation:fadeIn 0.8s ease;
+.auth-container {
+    width: 420px;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 30px 28px;
+    border-radius: 18px;
+    box-shadow: 0 26px 60px rgba(15, 23, 42, 0.25);
+    animation: fadeIn 0.8s ease;
 }
 
 /* Animation */
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== HEADING ===== */
-.auth-container h2{
-    text-align:center;
-    margin-bottom:20px;
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111827;
+    font-size: 1.8rem;
 }
 
 /* ===== INPUT ===== */
-.input-group{
-    margin-bottom:15px;
+.input-group {
+    margin-bottom: 15px;
 }
 
 .input-group input,
 .input-group select,
-.input-group textarea{
-    width:100%;
-    padding:10px;
-    border-radius:6px;
-    border:1px solid #ccc;
-    font-size:14px;
+.input-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background: #f9fafb;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #f97316;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
 }
 
 /* ===== TWO COLUMN ===== */
-.two-column{
-    display:flex;
-    gap:10px;
+.two-column {
+    display: flex;
+    gap: 10px;
 }
 
 /* ===== BUTTON ===== */
-.auth-btn{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:6px;
-    background:linear-gradient(45deg,#ff9900,#ff5e00);
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    margin-top:10px;
-    transition:0.3s;
+.auth-btn {
+    width: 100%;
+    padding: 13px 12px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff8a00, #ff5e00);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 12px 22px rgba(255, 94, 0, 0.2);
 }
 
-.auth-btn:hover{
-    transform:scale(1.05);
+.auth-btn:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 14px 28px rgba(255, 94, 0, 0.26);
 }
 
 /* ===== FOOTER ===== */
-.auth-footer{
-    text-align:center;
-    margin-top:15px;
+.auth-footer {
+    text-align: center;
+    margin-top: 15px;
+    color: #374151;
 }
 
-.auth-footer a{
-    color:#ff5e00;
-    text-decoration:none;
+.auth-footer a {
+    color: #ea580c;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
 }
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:450px){
-    .auth-container{
-        width:90%;
+    .auth-container {
+        width: 90%;
+    }
+
+    .two-column {
+        display: block;
     }
 }
 
@@ -190,10 +215,13 @@ async function verifyOTP(){
         return;
     }
 
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+
     const res = await fetch("http://localhost:5000/verify-otp",{
         method:"POST",
         headers:{ "Content-Type":"application/json" },
-        body: JSON.stringify({ email, password, otp, gender, address })
+        body: JSON.stringify({ firstName, lastName, email, password, otp, gender, address })
     });
 
     const data = await res.json();

@@ -79,32 +79,73 @@ if(!token){
     document.getElementById("productPrice").innerText = price;
 
 
-    function confirmBooking(){
+    async function confirmBooking(){
 
         const type = document.getElementById("bookingType").value;
-        const days = document.getElementById("rentalDays").value;
-        const address = document.getElementById("address").value;
+        const days = Number(document.getElementById("rentalDays").value || 0);
+        const address = document.getElementById("address").value.trim();
+        const token = localStorage.getItem("token");
+
+        if(!token){
+            alert("Please login first!");
+            window.location.href = "login.html";
+            return;
+        }
 
         if(address === ""){
             alert("Please enter address!");
             return;
         }
 
-        let totalPrice = price;
+        let totalPrice = Number(price || 0);
 
         if(type === "rent"){
-            totalPrice = Math.floor(price * (days/10)); 
-            // rental price logic
+            totalPrice = Math.floor(Number(price || 0) * (days / 10));
         }
 
-        document.getElementById("summary").innerHTML = `
-            <h3>✅ Booking Confirmed!</h3>
-            <p><b>Product:</b> ${name}</p>
-            <p><b>Type:</b> ${type.toUpperCase()}</p>
-            <p><b>Duration:</b> ${type==="rent"?days+" Days":"N/A"}</p>
-            <p><b>Total Price:</b> ₹${totalPrice}</p>
-            <p><b>Delivery Address:</b> ${address}</p>
-        `;
+        try {
+            const res = await fetch("http://localhost:5000/api/orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productName: name,
+                    productPrice: Number(price || 0),
+                    bookingType: type,
+                    rentalDays: days,
+                    deliveryAddress: address,
+                    paymentMethod: "cash",
+                    totalPrice
+                })
+            });
+
+            const data = await res.json();
+
+            if(!data.success){
+                alert(data.message || "Booking failed");
+                return;
+            }
+
+            localStorage.setItem("pendingOrderId", data.order._id);
+            localStorage.setItem("pendingOrderTotal", String(totalPrice));
+
+            document.getElementById("summary").innerHTML = `
+                <h3>✅ Booking Confirmed!</h3>
+                <p><b>Product:</b> ${name}</p>
+                <p><b>Type:</b> ${type.toUpperCase()}</p>
+                <p><b>Duration:</b> ${type === "rent" ? days + " Days" : "N/A"}</p>
+                <p><b>Total Price:</b> ₹${totalPrice}</p>
+                <p><b>Delivery Address:</b> ${address}</p>
+            `;
+
+            alert("Booking saved successfully ✅");
+            window.location.href = "payment.html";
+        } catch (error) {
+            console.error(error);
+            alert("Booking could not be saved. Please try again.");
+        }
     }
 
 

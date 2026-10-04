@@ -3,108 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>Cart-Verse Login</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-    *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI', sans-serif;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
     }
 
-    body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#232f3e,#37475a);
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1f2937 0%, #374151 35%, #f97316 100%);
     }
 
-.login-container{
-    width:350px;
-    background:white;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-    text-align:center;
-    animation:fadeIn 0.8s ease;
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(30px);
+    .login-container {
+        width: 380px;
+        background: rgba(255, 255, 255, 0.96);
+        padding: 32px 28px;
+        border-radius: 18px;
+        box-shadow: 0 26px 60px rgba(15, 23, 42, 0.25);
+        text-align: center;
+        animation: fadeIn 0.8s ease;
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-}
 
-.login-container h1{
-    color:#232f3e;
-    margin-bottom:10px;
-}
-
-.login-container h2{
-    margin-bottom:20px;
-    color:#555;
-}
-
-.login-container input{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-    border-radius:6px;
-    border:1px solid #ccc;
-    font-size:15px;
-    transition:0.3s;
-}
-
-.login-container input:focus{
-    border-color:#ff9900;
-    outline:none;
-    box-shadow:0 0 5px rgba(255,153,0,0.4);
-}
-
-.login-container button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:6px;
-    background:linear-gradient(45deg,#ff9900,#ff5e00);
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.login-container button:hover{
-    transform:scale(1.05);
-    box-shadow:0 6px 15px rgba(255,94,0,0.4);
-}
-
-.register-link{
-    margin-top:15px;
-    font-size:14px;
-}
-
-.register-link a{
-    color:#ff5e00;
-    font-weight:bold;
-    text-decoration:none;
-}
-
-.register-link a:hover{
-    text-decoration:underline;
-}
-
-@media(max-width:400px){
-    .login-container{
-        width:90%;
+    .login-container h1 {
+        color: #111827;
+        margin-bottom: 8px;
+        font-size: 2rem;
+        letter-spacing: 1px;
     }
-}</style>
+
+    .login-container h2 {
+        margin-bottom: 22px;
+        color: #4b5563;
+        font-size: 1.25rem;
+    }
+
+    .login-container input {
+        width: 100%;
+        padding: 12px 14px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: 1px solid #d1d5db;
+        font-size: 15px;
+        transition: 0.3s;
+        background: #f9fafb;
+    }
+
+    .login-container input:focus {
+        border-color: #f97316;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
+    }
+
+    .login-container button {
+        width: 100%;
+        padding: 13px 12px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #ff8a00, #ff5e00);
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: 0 12px 22px rgba(255, 94, 0, 0.2);
+    }
+
+    .login-container button:hover {
+        transform: translateY(-1px) scale(1.01);
+        box-shadow: 0 14px 28px rgba(255, 94, 0, 0.26);
+    }
+
+    .register-link {
+        margin-top: 16px;
+        font-size: 14px;
+        color: #374151;
+    }
+
+    .register-link a {
+        color: #ea580c;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    @media(max-width: 400px){
+        .login-container {
+            width: 90%;
+        }
+    }
+    </style>
 </head>
 
 <body>

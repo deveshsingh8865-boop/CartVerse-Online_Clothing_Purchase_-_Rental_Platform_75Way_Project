@@ -1,5 +1,5 @@
 function goHome() {
-    window.location.href = "index.html";
+    window.location.href = "oindex.html";
 }
 // cart storage
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
